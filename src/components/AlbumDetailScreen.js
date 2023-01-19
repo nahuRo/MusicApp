@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { fetchFromAPI } from "../services/fetchApi";
 import TableTracks from "./TableTracks";
 
-const AlbumTracks = () => {
+const AlbumDetailScreen = () => {
 	const [album, setAlbum] = useState([]);
 	const { idAlbum } = useParams();
 
@@ -13,9 +13,8 @@ const AlbumTracks = () => {
 		});
 	}, [idAlbum]);
 
-	console.log(album);
 	return (
-		<div className="xl:mx-16 mt-6">
+		<div className="xl:mx-24 mt-6">
 			<div className="flex">
 				<img src={album.cover_medium} alt={album.title} className="rounded-md" />
 				<div className="ml-4">
@@ -34,7 +33,13 @@ const AlbumTracks = () => {
 					<div className="flex items-center gap-4 text-xs">
 						<span>{album.nb_tracks} canciones </span>
 						<span>{album.duration / 60} </span> <span>{album.release_date}</span>
-						<span>{album.fans} seguidores</span>
+						<span>
+							{new Intl.NumberFormat("en-US", {
+								notation: "compact",
+								// style: "unit",
+							}).format(album.fans)}{" "}
+							seguidores
+						</span>
 					</div>
 				</div>
 			</div>
@@ -45,4 +50,4 @@ const AlbumTracks = () => {
 	);
 };
 
-export default AlbumTracks;
+export default AlbumDetailScreen;

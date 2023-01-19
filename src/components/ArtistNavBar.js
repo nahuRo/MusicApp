@@ -1,12 +1,12 @@
 import React from "react";
 import { useParams, NavLink } from "react-router-dom";
 
-const NavBarArtist = () => {
+const ArtistNavBar = () => {
 	const { artistName } = useParams();
 
 	return (
 		<>
-			<div className="pt-12 flex items-center justify-start gap-x-8 xl:mx-16">
+			<div className="pt-12 px-6 flex items-center justify-start gap-x-8 xl:mx-24">
 				<ul className="text-lg font-medium cursor-pointer text-slate-500 hover:text-black">
 					<NavLink className="" to={`/artist/${artistName}`}>
 						Todos
@@ -28,4 +28,4 @@ const NavBarArtist = () => {
 	);
 };
 
-export default NavBarArtist;
+export default ArtistNavBar;

@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import TableTacks from "./TableTracks";
 
 import { fetchFromAPI } from "../services/fetchApi";
-import NavBarArtist from "./NavBarArtist";
+import ArtistNavBar from "./ArtistNavBar";
 
-const DisplayTracks = () => {
+const ArtistTracksScreen = () => {
 	const [tracks, setTracks] = useState([]);
 	const { artistName } = useParams();
 
@@ -18,12 +18,12 @@ const DisplayTracks = () => {
 
 	return (
 		<>
-			<NavBarArtist />
-			<div className="xl:mx-16 mt-6">
+			<ArtistNavBar />
+			<div className="xl:mx-24 mt-6 px-6">
 				<TableTacks tracks={tracks} />
 			</div>
 		</>
 	);
 };
 
-export default DisplayTracks;
+export default ArtistTracksScreen;

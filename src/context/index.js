@@ -6,7 +6,7 @@ export const MusicProvider = ({ children }) => {
 	const [tracks, setTracks] = useState([]);
 	const [artistId, setArtistId] = useState();
 
-	const [audio, setAudio] = useState([]);
+	const [audio, setAudio] = useState();
 
 	return (
 		<musicContext.Provider

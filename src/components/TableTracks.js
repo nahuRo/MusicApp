@@ -3,6 +3,7 @@ import { musicContext } from "../context/index";
 
 // import { TbMicrophone2 } from "react-icons/tb";
 // import { TbHeartPlus } from "react-icons/tb";
+import { MdExplicit } from "react-icons/md";
 
 const TableTracks = ({ tracks }) => {
 	const { setAudio } = useContext(musicContext);
@@ -23,16 +24,23 @@ const TableTracks = ({ tracks }) => {
 						<tr key={track.id} className="hover:text-red-300 ">
 							<td className="flex justify-between py-2">
 								<div className="flex items-center">
-									<button onClick={() => setAudio(track)}>
+									<button onClick={() => setAudio(track.id)}>
 										<img
 											src={track.album.cover_small}
-											alt=""
+											alt={track.album.title}
 											className="w-3/4"
 										/>
 									</button>
 									<span className="ml-4 cursor-pointer hover:underline">
-										{track.title}
+										{track.title.length > 40
+											? `${track.title.slice(0, 40)} ...`
+											: track.title}
 									</span>
+									{track.explicit_lyrics ? (
+										<MdExplicit className="ml-2" />
+									) : (
+										""
+									)}
 								</div>
 								{/* <div className="flex items-center">
                         <TbMicrophone2 className="text-lg" />

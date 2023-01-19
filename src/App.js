@@ -6,12 +6,12 @@ import SideBar from "./components/SideBar";
 import Feed from "./components/Feed";
 import MediaPlayer from "./components/MediaPlayer";
 
-import SearchScreen from "./components/SearchScreen";
+// Artist Screens
+import ArtistScreen from "./components/ArtistScreen";
+import ArtistTracksScreen from "./components/ArtistTracksScreen";
+import ArtistAlbumScreen from "./components/ArtistAlbumScreen";
 
-import DisplayTracks from "./components/DisplayTracks";
-import DisplayAlbum from "./components/DisplayAlbum";
-
-import AlbumTracks from "./components/AlbumTracks";
+import AlbumDetailScreen from "./components/AlbumDetailScreen";
 
 import { MusicProvider } from "./context/index";
 
@@ -31,21 +31,21 @@ function App() {
 
 						<Routes>
 							<Route path="/" element={<Feed />} />
-							<Route path="/artist/:artistName" element={<SearchScreen />} />
+							<Route path="/artist/:artistName" element={<ArtistScreen />} />
 							<Route
 								path="/artist/:artistName/tracks"
-								element={<DisplayTracks />}
+								element={<ArtistTracksScreen />}
 							/>
 							<Route
 								path="/artist/:artistName/album"
-								element={<DisplayAlbum />}
+								element={<ArtistAlbumScreen />}
 							/>
 
-							<Route path="/album/:idAlbum" element={<AlbumTracks />} />
+							<Route path="/album/:idAlbum" element={<AlbumDetailScreen />} />
 						</Routes>
 					</div>
 					<div className="cont-media border-slate-200 border-t px-8">
-						<MediaPlayer className="border-t" />
+						<MediaPlayer />
 					</div>
 				</BrowserRouter>
 			</MusicProvider>
