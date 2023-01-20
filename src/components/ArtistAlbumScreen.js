@@ -7,15 +7,31 @@ import { fetchFromAPI } from "../services/fetchApi";
 
 const ArtistAlbumScreen = () => {
 	const [tapes, setTapes] = useState([]);
+	const [loading, setLoading] = useState(false);
+
 	const { artistName } = useParams();
 
 	useEffect(() => {
-		fetchFromAPI(`/search?q=${artistName}&index=${0}&limit=50`).then((resp) => {
-			const { data } = resp;
-			console.log(data);
-			setTapes(data);
-		});
+		fetchApi(artistName);
 	}, [artistName]);
+
+	const fetchApi = async (artist) => {
+		setLoading(true);
+
+		const { data } = await fetchFromAPI(`/search?q=${artist}&index=${0}&limit=50`);
+		setTapes(data);
+
+		setLoading(false);
+	};
+
+	if (loading) {
+		return (
+			<div className="h-full flex items-center justify-center flex-col gap-8">
+				<span className="loader inline-block"></span>
+				<h2>Loading ...</h2>
+			</div>
+		);
+	}
 
 	return (
 		<>

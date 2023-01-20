@@ -4,27 +4,43 @@ import { useParams, NavLink } from "react-router-dom";
 const ArtistNavBar = () => {
 	const { artistName } = useParams();
 
+	const pageButtonActive = {
+		color: "#000",
+		fontWeight: "bold",
+	};
+
 	return (
-		<>
-			<div className="pt-12 px-6 flex items-center justify-start gap-x-8 xl:mx-24">
-				<ul className="text-lg font-medium cursor-pointer text-slate-500 hover:text-black">
-					<NavLink className="" to={`/artist/${artistName}`}>
+		<div className="block shadow-sm relative pt-12 h-24">
+			<ul className="h-full flex items-center justify-start gap-x-8 text-lg font-medium cursor-pointer text-slate-500 hover:text-black px-6 xl:mx-24">
+				<li className="h-full relative">
+					<NavLink
+						style={({ isActive }) => (isActive ? pageButtonActive : undefined)}
+						className="hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:bg-orange-400 hover:after:w-full hover:after:h-0.5 "
+						to={`/artist/${artistName}/`}
+					>
 						Todos
 					</NavLink>
-				</ul>
-				<ul className="text-lg font-medium cursor-pointer text-slate-500 hover:text-black">
-					<NavLink className="" to={`/artist/${artistName}/tracks`}>
+				</li>
+				<li className="h-full relative">
+					<NavLink
+						style={({ isActive }) => (isActive ? pageButtonActive : undefined)}
+						className="hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:bg-orange-400 hover:after:w-full hover:after:h-0.5 "
+						to={`/artist/${artistName}/tracks`}
+					>
 						Canciones
 					</NavLink>
-				</ul>
-				<ul className="text-lg font-medium cursor-pointer text-slate-500 hover:text-black">
-					<NavLink className="" to={`/artist/${artistName}/album`}>
+				</li>
+				<li className="h-full relative">
+					<NavLink
+						style={({ isActive }) => (isActive ? pageButtonActive : undefined)}
+						className="hover:after:content-[''] hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:bg-orange-400 hover:after:w-full hover:after:h-0.5 "
+						to={`/artist/${artistName}/album`}
+					>
 						Álbumes
 					</NavLink>
-				</ul>
-			</div>
-			<span className="block shadow-sm h-2"></span>
-		</>
+				</li>
+			</ul>
+		</div>
 	);
 };
 

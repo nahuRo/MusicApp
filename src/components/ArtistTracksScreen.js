@@ -7,14 +7,31 @@ import ArtistNavBar from "./ArtistNavBar";
 
 const ArtistTracksScreen = () => {
 	const [tracks, setTracks] = useState([]);
+	const [loading, setLoading] = useState(false);
+
 	const { artistName } = useParams();
 
 	useEffect(() => {
-		fetchFromAPI(`/search?q=${artistName}&index=${0}&limit=50`).then((resp) => {
-			const { data } = resp;
-			setTracks(data);
-		});
+		fetchApi(artistName);
 	}, [artistName]);
+
+	const fetchApi = async (artist) => {
+		setLoading(true);
+
+		const { data } = await fetchFromAPI(`/search?q=${artist}&index=${0}&limit=50`);
+		setTracks(data);
+
+		setLoading(false);
+	};
+
+	if (loading) {
+		return (
+			<div className="h-full flex items-center justify-center flex-col gap-8">
+				<span className="loader inline-block"></span>
+				<h2>Loading ...</h2>
+			</div>
+		);
+	}
 
 	return (
 		<>

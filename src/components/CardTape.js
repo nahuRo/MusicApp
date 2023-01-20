@@ -19,7 +19,9 @@ const CardTape = ({ tape }) => {
 				</span>
 			</div>
 			<div className="pt-2">
-				<h2>{tape.album.title}</h2>
+				<h2>
+					{tape.title.length > 40 ? `${tape.title.slice(0, 30)} ...` : tape.title}
+				</h2>
 				<h4 className="text-xs">de {tape.artist.name}</h4>
 			</div>
 		</div>

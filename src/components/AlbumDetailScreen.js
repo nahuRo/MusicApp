@@ -5,13 +5,31 @@ import TableTracks from "./TableTracks";
 
 const AlbumDetailScreen = () => {
 	const [album, setAlbum] = useState([]);
+	const [loading, setLoading] = useState(false);
+
 	const { idAlbum } = useParams();
 
 	useEffect(() => {
-		fetchFromAPI(`/album/${idAlbum}`).then((resp) => {
-			setAlbum(resp);
-		});
+		fetchApi(idAlbum);
 	}, [idAlbum]);
+
+	const fetchApi = async (id) => {
+		setLoading(true);
+
+		const data = await fetchFromAPI(`/album/${id}`);
+		setAlbum(data);
+
+		setLoading(false);
+	};
+
+	if (loading) {
+		return (
+			<div className="h-full flex items-center justify-center flex-col gap-8">
+				<span className="loader inline-block"></span>
+				<h2>Loading ...</h2>
+			</div>
+		);
+	}
 
 	return (
 		<div className="xl:mx-24 mt-6">

@@ -1,13 +1,19 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { musicContext } from "../context/index";
 
-// import { TbMicrophone2 } from "react-icons/tb";
-// import { TbHeartPlus } from "react-icons/tb";
 import { MdExplicit } from "react-icons/md";
+
+const setDuration = (seconds) => {
+	let minute = Math.floor((seconds / 60) % 60);
+	minute = minute < 10 ? "0" + minute : minute;
+	let second = seconds % 60;
+	second = second < 10 ? "0" + second : second;
+	return minute + ":" + second;
+};
 
 const TableTracks = ({ tracks }) => {
 	const { setAudio } = useContext(musicContext);
-
 	return (
 		<>
 			<table className="w-full">
@@ -20,11 +26,11 @@ const TableTracks = ({ tracks }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{tracks.map((track) => (
+					{tracks.map((track, index, arrayobj) => (
 						<tr key={track.id} className="hover:text-red-300 ">
 							<td className="flex justify-between py-2">
 								<div className="flex items-center">
-									<button onClick={() => setAudio(track.id)}>
+									<button onClick={() => setAudio([track.id, arrayobj])}>
 										<img
 											src={track.album.cover_small}
 											alt={track.album.title}
@@ -42,24 +48,28 @@ const TableTracks = ({ tracks }) => {
 										""
 									)}
 								</div>
-								{/* <div className="flex items-center">
-                        <TbMicrophone2 className="text-lg" />
-                        <TbHeartPlus />
-                    </div> */}
 							</td>
 							<td>
-								<span className="cursor-pointer hover:underline">
+								<Link
+									className="cursor-pointer hover:underline"
+									to={`/artist/${track.artist.name}`}
+								>
 									{track.artist.name}
-								</span>
+								</Link>
 							</td>
 							<td>
-								<span className="cursor-pointer hover:underline">
-									{track.album.title}
-								</span>
+								<Link
+									className="cursor-pointer hover:underline"
+									to={`/album/${track.album.id}`}
+								>
+									{track.album.title.length > 40
+										? `${track.album.title.slice(0, 40)} ...`
+										: track.album.title}
+								</Link>
 							</td>
 							<td>
 								<span className="cursor-pointer">
-									{(track.duration / 60).toFixed(1)}
+									{setDuration(track.duration)}
 								</span>
 							</td>
 						</tr>

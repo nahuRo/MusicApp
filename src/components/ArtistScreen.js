@@ -1,8 +1,6 @@
-import { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchFromAPI } from "../services/fetchApi";
-
-import { musicContext } from "../context/index";
 
 import TableTracks from "./TableTracks";
 
@@ -11,24 +9,34 @@ import CardTape from "./CardTape";
 import ArtistNavBar from "./ArtistNavBar";
 
 const ArtistScreen = () => {
-	const { artistId } = useContext(musicContext);
-
 	const [tracks, setTracks] = useState([]);
 	const [artist, setArtist] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	const { artistName } = useParams();
 
 	useEffect(() => {
-		if (artistId) {
-			fetchFromAPI(`/artist/${artistId}`).then((resp) => {
-				setArtist(resp);
-			});
-		}
-		fetchFromAPI(`/search?q=${artistName}&index=${0}&limit=5`).then((resp) => {
-			const { data } = resp;
-			setTracks(data);
-		});
-	}, [artistId, artistName]);
+		fetchApi(artistName);
+	}, [artistName]);
+
+	const fetchApi = async (artist) => {
+		setLoading(true);
+		const { data } = await fetchFromAPI(`/search?q=${artist}&index=${0}&limit=5`);
+		setTracks(data);
+
+		const artistInfo = await fetchFromAPI(`/artist/${data[0].artist.id}`);
+		setArtist(artistInfo);
+		setLoading(false);
+	};
+
+	if (loading) {
+		return (
+			<div className="h-full flex items-center justify-center flex-col gap-8">
+				<span className="loader inline-block"></span>
+				<h2>Loading ...</h2>
+			</div>
+		);
+	}
 
 	return (
 		<div className="">

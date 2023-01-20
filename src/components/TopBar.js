@@ -9,14 +9,14 @@ import { fetchFromAPI } from "../services/fetchApi";
 import { musicContext } from "../context/index";
 
 const TopBar = () => {
-	const { setTracks, setArtistId } = useContext(musicContext);
+	const { setTracks } = useContext(musicContext);
 	const [searchTerm, setSearchTerm] = useState("");
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		getMusic();
+		fetchApi();
 
 		if (searchTerm) {
 			navigate(`/artist/${searchTerm}`);
@@ -25,10 +25,9 @@ const TopBar = () => {
 		}
 	};
 
-	const getMusic = async () => {
+	const fetchApi = async () => {
 		const { data } = await fetchFromAPI(`/search?q=${searchTerm}&index=${0}&limit=5`);
 		setTracks(data);
-		setArtistId(data[0].artist.id);
 	};
 
 	return (
