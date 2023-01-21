@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { musicContext } from "../context/index";
 
@@ -6,33 +6,25 @@ import { BsPlayFill } from "react-icons/bs";
 import { BsFillPauseFill } from "react-icons/bs";
 import { BsSkipEndFill } from "react-icons/bs";
 import { BsSkipStartFill } from "react-icons/bs";
+import { BsFillVolumeOffFill } from "react-icons/bs";
+import { BsFillVolumeUpFill } from "react-icons/bs";
 import { BsHeart } from "react-icons/bs";
-
-// import { BsFillMicFill } from "react-icons/bs";
-// import { BsFillMicMuteFill } from "react-icons/bs";
-
-// import { MdReplay } from "react-icons/md";
-
 import { MdExplicit } from "react-icons/md";
 
-import { fetchFromAPI } from "../services/fetchApi";
+import notMusic from "../assets/notMusic.jpg";
 
-// import { BsFillVolumeOffFill } from "react-icons/bs";
-// import { BsFillVolumeMuteFill } from "react-icons/bs";
-import { BsFillVolumeDownFill } from "react-icons/bs";
-// import { BsFillVolumeUpFill } from "react-icons/bs";
+import { fetchFromAPI } from "../services/fetchApi";
 
 const MediaPlayer = () => {
 	const { audio } = useContext(musicContext);
 	const [songData, setSongData] = useState([]);
 	const [currentSong, setCurrentSong] = useState();
-
 	const [play, setPlay] = useState(false);
 
 	// referencias, es como el getElementById que usabamos en js para manipular el DOM
 	const refAudio = useRef();
 	const progressBar = useRef();
-	const inputRange = useRef();
+
 	let currentT = useRef();
 	let totalT = useRef();
 
@@ -68,12 +60,6 @@ const MediaPlayer = () => {
 		setPlay(true);
 	};
 
-	// let idsss = audio[0];
-	// if (refAudio.current?.ended) {
-	// 	console.log("termine");
-	// 	console.log("ultimo id", currentSong);
-	// }
-
 	const handleProx = () => {
 		const ind = audio[1].findIndex((aud) => aud.id === currentSong);
 
@@ -96,10 +82,13 @@ const MediaPlayer = () => {
 
 	return (
 		<>
-			<div className="flex items-center justify-around">
+			<div className={`flex items-center justify-around `}>
 				<button
-					className="text-4xl focus:bg-slate-200 rounded-full w-12 h-12 text-center flex items-center justify-center"
+					className={`text-slate-700 text-4xl focus:bg-slate-200 rounded-full w-12 h-12 text-center flex items-center justify-center ${
+						songData.length === 0 ? "text-slate-200" : ""
+					}`}
 					onClick={handlePrev}
+					disabled={songData.length === 0 ? true : false}
 				>
 					<BsSkipStartFill />
 				</button>
@@ -108,11 +97,14 @@ const MediaPlayer = () => {
 					<button
 						className={`${
 							!play ? "block" : "hidden"
-						} focus:bg-slate-200 rounded-full w-12 h-12 text-center flex items-center justify-center`}
+						} text-slate-700 focus:bg-slate-200 rounded-full w-12 h-12 text-center flex items-center justify-center ${
+							songData.length === 0 ? "text-slate-200" : ""
+						}`}
 						onClick={() => {
 							refAudio.current.pause(); // es un objeto por eso accedo a current y alli si puedo manipularlo
 							setPlay(true);
 						}}
+						disabled={songData.length === 0 ? true : false}
 					>
 						<BsFillPauseFill className="text-4xl " />
 					</button>
@@ -120,19 +112,25 @@ const MediaPlayer = () => {
 					<button
 						className={`${
 							play ? "block" : "hidden"
-						} focus:bg-slate-200 rounded-full w-12 h-12 text-center flex items-center justify-center`}
+						} text-slate-700 focus:bg-slate-200 rounded-full w-12 h-12 text-center flex items-center justify-center ${
+							songData.length === 0 ? "text-slate-200" : ""
+						}`}
 						onClick={() => {
 							refAudio.current.play(); // es un objeto por eso accedo a current y alli si puedo manipularlo
 							setPlay(false);
 						}}
+						disabled={songData.length === 0 ? true : false}
 					>
 						<BsPlayFill className="text-4xl " />
 					</button>
 				)}
 
 				<button
-					className="text-4xl focus:bg-slate-200 rounded-full w-12 h-12 text-center flex items-center justify-center"
+					className={`text-slate-700 text-4xl focus:bg-slate-200 rounded-full w-12 h-12 text-center flex items-center justify-center ${
+						songData.length === 0 ? "text-slate-200" : ""
+					}`}
 					onClick={handleProx}
+					disabled={songData.length === 0 ? true : false}
 				>
 					<BsSkipEndFill />
 				</button>
@@ -165,7 +163,7 @@ const MediaPlayer = () => {
 								</Link>
 							</div>
 						</div>
-						<button>
+						<button disabled={songData.length === 0 ? true : false}>
 							<BsHeart />
 						</button>
 					</div>
@@ -177,7 +175,6 @@ const MediaPlayer = () => {
 						<audio
 							onEnded={handleEnded}
 							onTimeUpdate={handleProgress}
-							// onVolumeChange={(e) => console.log(e.target.volume)}
 							src={songData?.preview}
 							ref={refAudio}
 							autoPlay={true}
@@ -191,29 +188,30 @@ const MediaPlayer = () => {
 			<div className="flex items-center justify-around">
 				<div className="flex items-center">
 					<button
-						className="text-4xl"
-						// onClick={() => {
-						// 	refAudio.current.muted = false; // es un objeto por eso accedo a current y alli si puedo manipularlo
-						// }}
+						className="text-2xl text-slate-700"
+						onClick={() => {
+							refAudio.current.muted = false; // es un objeto por eso accedo a current y alli si puedo manipularlo
+						}}
 					>
-						<BsFillVolumeDownFill />
-						{/* <BsFillMicFill /> */}
+						<BsFillVolumeOffFill />
 					</button>
 					<input
+						className="mx-2"
 						type="range"
 						min="0"
 						step="0.01"
 						max="1"
-						ref={inputRange}
 						onChange={(e) => (refAudio.current.volume = e.target.value)}
 					/>
+					<button className="text-2xl text-slate-700">
+						<BsFillVolumeUpFill />
+					</button>
 				</div>
 				<span className="w-px h-2/5 bg-slate-300"></span>
-				{/* <div className="bg-red-900 absolute w-full h-5/6 inset-0"></div> */}
 				<button className="flex items-center gap-4 hover:bg-slate-100 p-2 rounded-md">
-					<h3 className="text-xs">{songData?.album && "Lista de Espera"}</h3>
+					<h3 className="text-xs">Lista de Espera</h3>
 					<img
-						src={songData?.album && songData.album.cover_small}
+						src={songData.album?.cover_small || notMusic}
 						alt={songData?.album && songData.title}
 						className="rounded-md w-9"
 					/>

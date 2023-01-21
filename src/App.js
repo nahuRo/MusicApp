@@ -13,6 +13,8 @@ import ArtistAlbumScreen from "./components/ArtistAlbumScreen";
 
 import AlbumDetailScreen from "./components/AlbumDetailScreen";
 
+import Profile from "./components/Profile";
+
 import { MusicProvider } from "./context/index";
 
 function App() {
@@ -40,6 +42,7 @@ function App() {
 								path="/artist/:artistName/album"
 								element={<ArtistAlbumScreen />}
 							/>
+							<Route path="/profile" element={<Profile />} />
 
 							<Route path="/album/:idAlbum" element={<AlbumDetailScreen />} />
 						</Routes>

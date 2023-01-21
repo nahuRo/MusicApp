@@ -28,7 +28,7 @@ const ArtistAlbumScreen = () => {
 		return (
 			<div className="h-full flex items-center justify-center flex-col gap-8">
 				<span className="loader inline-block"></span>
-				<h2>Loading ...</h2>
+				<h2 className="text-lg">Loading ...</h2>
 			</div>
 		);
 	}

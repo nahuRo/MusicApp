@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import { musicContext } from "../context/index";
 
 import { MdExplicit } from "react-icons/md";
+import { TbMicrophone2 } from "react-icons/tb";
+import { BsHeart } from "react-icons/bs";
+import { BsMusicNoteList } from "react-icons/bs";
+
+import toast, { Toaster } from "react-hot-toast";
 
 const setDuration = (seconds) => {
 	let minute = Math.floor((seconds / 60) % 60);
@@ -13,22 +18,22 @@ const setDuration = (seconds) => {
 };
 
 const TableTracks = ({ tracks }) => {
-	const { setAudio } = useContext(musicContext);
+	const { setAudio, setFavTracks, favTracks } = useContext(musicContext);
 	return (
 		<>
 			<table className="w-full">
 				<thead className="text-start">
-					<tr className="text-left border-b border-slate-200">
-						<th>Canción</th>
-						<th>Artista</th>
-						<th>Album</th>
-						<th>Time</th>
+					<tr className="text-left border-b border-slate-200 text-slate-400">
+						<th className="font-light">Canción</th>
+						<th className="font-light">Artista</th>
+						<th className="font-light">Álbum</th>
+						<th className="font-light">Time</th>
 					</tr>
 				</thead>
 				<tbody>
 					{tracks.map((track, index, arrayobj) => (
 						<tr key={track.id} className="hover:text-red-300 ">
-							<td className="flex justify-between py-2">
+							<td className="flex justify-between py-2 pr-4">
 								<div className="flex items-center">
 									<button onClick={() => setAudio([track.id, arrayobj])}>
 										<img
@@ -37,18 +42,65 @@ const TableTracks = ({ tracks }) => {
 											className="w-3/4"
 										/>
 									</button>
-									<span className="ml-4 cursor-pointer hover:underline">
-										{track.title.length > 40
-											? `${track.title.slice(0, 40)} ...`
-											: track.title}
-									</span>
+									<button onClick={() => setAudio([track.id, arrayobj])}>
+										<span className="ml-4 cursor-pointer hover:underline">
+											{track.title.length > 40
+												? `${track.title.slice(0, 40)} ...`
+												: track.title}
+										</span>
+									</button>
 									{track.explicit_lyrics ? (
 										<MdExplicit className="ml-2" />
 									) : (
 										""
 									)}
 								</div>
+								<div className="flex items-center gap-4">
+									{track.explicit_lyrics && (
+										<button
+											onClick={() => {
+												toast.error("This didn't work.", {
+													duration: 1000,
+													position: "top-center",
+
+													// Styling
+													style: {
+														paddingRight: "25px",
+														paddingLeft: "25px",
+														backgroundColor: "#fee2e2",
+													},
+												});
+												setFavTracks([...favTracks, track]);
+											}}
+										>
+											<TbMicrophone2 />
+										</button>
+									)}
+									<button
+										onClick={() => {
+											toast.success("Add", {
+												duration: 1000,
+												position: "top-center",
+
+												// Styling
+												style: {
+													paddingRight: "25px",
+													paddingLeft: "25px",
+													backgroundColor: "#fee2e2",
+												},
+
+												// Custom Icon
+												icon: <BsMusicNoteList />,
+											});
+											setFavTracks([...favTracks, track]);
+										}}
+									>
+										<BsHeart />
+									</button>
+								</div>
 							</td>
+							{/* hola */}
+
 							<td>
 								<Link
 									className="cursor-pointer hover:underline"
@@ -76,6 +128,7 @@ const TableTracks = ({ tracks }) => {
 					))}
 				</tbody>
 			</table>
+			<Toaster />
 		</>
 	);
 };

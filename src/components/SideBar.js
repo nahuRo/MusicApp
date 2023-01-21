@@ -16,13 +16,13 @@ const SideBar = () => {
 		<>
 			<div className="row-span-1 justify-self-center mt-4">
 				<Link className="" to={"/"}>
-					<BsXDiamondFill className="inline-block text-3xl" />
+					<BsXDiamondFill className="inline-block text-3xl text-slate-900" />
 					<span className="ml-3">Dezzerrsd</span>
 				</Link>
 			</div>
 
 			<ul className="px-4 mt-6 row-span-2">
-				<li className="hover:text-red-400 cursor-pointer max-w-3xl mb-4">
+				<li className="text-slate-900 hover:text-red-400 cursor-pointer max-w-3xl mb-4">
 					<NavLink
 						className="text-xl"
 						to={"/sss"}
@@ -32,7 +32,7 @@ const SideBar = () => {
 						<span className="ml-3">Música</span>
 					</NavLink>
 				</li>
-				<li className="hover:text-red-400 cursor-pointer mb-4">
+				<li className="text-slate-900 hover:text-red-400 cursor-pointer mb-4">
 					<NavLink
 						className="text-xl"
 						to={"/a"}
@@ -42,7 +42,7 @@ const SideBar = () => {
 						<span className="ml-3">Radio</span>
 					</NavLink>
 				</li>
-				<li className="hover:text-red-400 cursor-pointer mb-4">
+				<li className="text-slate-900 hover:text-red-400 cursor-pointer mb-4">
 					<NavLink
 						className="text-xl"
 						to={"/v"}
@@ -52,10 +52,10 @@ const SideBar = () => {
 						<span className="ml-3">Explorar</span>
 					</NavLink>
 				</li>
-				<li className="hover:text-red-400 cursor-pointer mb-4">
+				<li className="text-slate-900 hover:text-red-400 cursor-pointer mb-4">
 					<NavLink
 						className="text-xl"
-						to={"/d"}
+						to={"/profile"}
 						style={({ isActive }) => (isActive ? pageButtonActive : undefined)}
 					>
 						<BsHeartFill className="inline-block" />
