@@ -11,7 +11,7 @@ const CardTape = ({ tape }) => {
 					<img
 						src={tape.album.cover_medium}
 						alt={tape.album.title}
-						className="rounded-md"
+						className="rounded-md w-64"
 					/>
 				</Link>
 				<span className="bg-white rounded-full w-9 h-9 absolute bottom-3 left-3 flex items-center justify-center">

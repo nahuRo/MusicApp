@@ -85,7 +85,7 @@ const ArtistScreen = () => {
 					>
 						Albúmes
 					</Link>
-					<div className="flex flex-wrap gap-8">
+					<div className="flex flex-wrap gap-8 justify-between">
 						{tracks.map((tape) => (
 							<CardTape tape={tape} key={tape.id} />
 						))}

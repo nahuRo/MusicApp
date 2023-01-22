@@ -25,7 +25,7 @@ const SideBar = () => {
 				<li className="text-slate-900 hover:text-red-400 cursor-pointer max-w-3xl mb-4">
 					<NavLink
 						className="text-xl"
-						to={"/sss"}
+						to={"/"}
 						style={({ isActive }) => (isActive ? pageButtonActive : undefined)}
 					>
 						<BsFileEarmarkMusicFill className="inline-block" />
