@@ -15,9 +15,9 @@ const SideBar = () => {
 	return (
 		<>
 			<div className="row-span-1 justify-self-center mt-4">
-				<Link className="" to={"/"}>
+				<Link className="flex items-center" to={"/"}>
 					<BsXDiamondFill className="inline-block text-3xl text-slate-900" />
-					<span className="ml-3">Dezzerrsd</span>
+					<span className="ml-3 text-red-300 text-xl font-bold">MyTracksv2</span>
 				</Link>
 			</div>
 
