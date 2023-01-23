@@ -5,7 +5,6 @@ import TableTracks from "./TableTracks";
 
 const Profile = () => {
 	const { favTracks } = useContext(musicContext);
-	console.log(favTracks);
 	return (
 		<>
 			<div className="block shadow-sm relative pt-12 h-24">
