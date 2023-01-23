@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://deezerdevs-deezer.p.rapidapi.com";
+const BASE_URL = process.env.REACT_APP_RAPID_BASE_URL;
 
 const options = {
 	headers: {
