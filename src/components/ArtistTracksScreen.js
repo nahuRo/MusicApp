@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import TableTacks from "./TableTracks";
+import TableTracks from "./TableTracks";
 
 import { fetchFromAPI } from "../services/fetchApi";
 import ArtistNavBar from "./ArtistNavBar";
@@ -37,7 +37,7 @@ const ArtistTracksScreen = () => {
 		<>
 			<ArtistNavBar />
 			<div className="xl:mx-24 mt-6 px-6">
-				<TableTacks tracks={tracks} />
+				<TableTracks tracks={tracks} AddFav={true} />
 			</div>
 		</>
 	);

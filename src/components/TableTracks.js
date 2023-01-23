@@ -4,7 +4,7 @@ import { musicContext } from "../context/index";
 
 import { MdExplicit } from "react-icons/md";
 import { TbMicrophone2 } from "react-icons/tb";
-import { BsHeart } from "react-icons/bs";
+import { BsHeartFill } from "react-icons/bs";
 import { BsMusicNoteList } from "react-icons/bs";
 
 import toast, { Toaster } from "react-hot-toast";
@@ -17,8 +17,32 @@ const setDuration = (seconds) => {
 	return minute + ":" + second;
 };
 
-const TableTracks = ({ tracks }) => {
+const TableTracks = ({ tracks, AddFav }) => {
 	const { setAudio, setFavTracks, favTracks } = useContext(musicContext);
+
+	const handleFav = (e, track) => {
+		toast.success("Add", {
+			duration: 1000,
+			position: "top-center",
+
+			// Styling
+			style: {
+				paddingRight: "25px",
+				paddingLeft: "25px",
+				backgroundColor: "#fee2e2",
+			},
+
+			// Custom Icon
+			icon: <BsMusicNoteList />,
+		});
+
+		if (!favTracks.find((trk) => trk.id === track.id)) {
+			e.target.classList.add("fill-red-400");
+			return setFavTracks([...favTracks, track]);
+		}
+		e.target.classList.remove("fill-red-400");
+	};
+
 	return (
 		<>
 			<table className="w-full">
@@ -70,37 +94,18 @@ const TableTracks = ({ tracks }) => {
 														backgroundColor: "#fee2e2",
 													},
 												});
-												setFavTracks([...favTracks, track]);
 											}}
 										>
 											<TbMicrophone2 />
 										</button>
 									)}
-									<button
-										onClick={() => {
-											toast.success("Add", {
-												duration: 1000,
-												position: "top-center",
-
-												// Styling
-												style: {
-													paddingRight: "25px",
-													paddingLeft: "25px",
-													backgroundColor: "#fee2e2",
-												},
-
-												// Custom Icon
-												icon: <BsMusicNoteList />,
-											});
-											setFavTracks([...favTracks, track]);
-										}}
-									>
-										<BsHeart />
-									</button>
+									{AddFav && (
+										<button onClick={(e) => handleFav(e, track)}>
+											<BsHeartFill />
+										</button>
+									)}
 								</div>
 							</td>
-							{/* hola */}
-
 							<td>
 								<Link
 									className="cursor-pointer hover:underline"

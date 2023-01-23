@@ -1,9 +1,5 @@
-// import { useEffect } from "react";
-// import { fetchFromAPI } from "../services/fetchApi";
-
 import { BsTree } from "react-icons/bs";
 import { FaEye } from "react-icons/fa";
-import { FaBomb } from "react-icons/fa";
 import { GiPartyPopper } from "react-icons/gi";
 import { GiPapyrus } from "react-icons/gi";
 import { GiHeartBeats } from "react-icons/gi";
@@ -26,12 +22,6 @@ import topWorld_jpg from "../assets/topWorld.jpg";
 import NormalCard from "./NormalCard";
 
 const Feed = () => {
-	// useEffect(() => {
-	// 	fetchFromAPI(`/search?q=eminem`).then((data) => {
-	// 		console.log(data);
-	// 	});
-	// }, []);
-
 	return (
 		<div className="xl:mx-24">
 			<div className="p-6">

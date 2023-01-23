@@ -22,6 +22,13 @@ const AlbumDetailScreen = () => {
 		setLoading(false);
 	};
 
+	const setDuration = (seconds) => {
+		let minute = Math.floor((seconds / 60) % 60);
+		minute = minute < 10 ? "0" + minute : minute;
+
+		return minute;
+	};
+
 	if (loading) {
 		return (
 			<div className="h-full flex items-center justify-center flex-col gap-8">
@@ -48,21 +55,24 @@ const AlbumDetailScreen = () => {
 						/>
 						<h3 className="text-sm pl-3">{album.artist && album.artist.name}</h3>
 					</div>
-					<div className="flex items-center gap-4 text-xs">
+					<div className="flex items-center gap-1 text-xs text-slate-500">
 						<span>{album.nb_tracks} canciones </span>
-						<span>{album.duration / 60} </span> <span>{album.release_date}</span>
+						<span> - </span>
+						<span>{setDuration(album.duration)} minutos</span>
+						<span> - </span>
+						<span>{album.release_date}</span>
+						<span> - </span>
 						<span>
 							{new Intl.NumberFormat("en-US", {
 								notation: "compact",
-								// style: "unit",
-							}).format(album.fans)}{" "}
+							}).format(album.fans)}
 							seguidores
 						</span>
 					</div>
 				</div>
 			</div>
 			<div className="mt-5 p-6">
-				<TableTracks tracks={album.tracks ? album.tracks.data : []} />
+				<TableTracks tracks={album.tracks ? album.tracks.data : []} AddFav={true} />
 			</div>
 		</div>
 	);

@@ -35,17 +35,17 @@ const SideBar = () => {
 				<li className="text-slate-900 hover:text-red-400 cursor-pointer mb-4">
 					<NavLink
 						className="text-xl"
-						to={"/a"}
+						to={"/podcasts"}
 						style={({ isActive }) => (isActive ? pageButtonActive : undefined)}
 					>
 						<BsMicFill className="inline-block" />
-						<span className="ml-3">Radio</span>
+						<span className="ml-3">Podcasts</span>
 					</NavLink>
 				</li>
 				<li className="text-slate-900 hover:text-red-400 cursor-pointer mb-4">
 					<NavLink
 						className="text-xl"
-						to={"/v"}
+						to={"/explore"}
 						style={({ isActive }) => (isActive ? pageButtonActive : undefined)}
 					>
 						<BsBookHalf className="inline-block" />

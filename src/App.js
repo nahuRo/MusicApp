@@ -14,6 +14,8 @@ import ArtistAlbumScreen from "./components/ArtistAlbumScreen";
 import AlbumDetailScreen from "./components/AlbumDetailScreen";
 
 import Profile from "./components/Profile";
+import Explore from "./components/Explore";
+import Podcasts from "./components/Podcasts";
 
 import { MusicProvider } from "./context/index";
 
@@ -33,6 +35,10 @@ function App() {
 
 						<Routes>
 							<Route path="/" element={<Feed />} />
+							<Route path="/explore" element={<Explore />} />
+							<Route path="/podcasts" element={<Podcasts />} />
+							<Route path="/profile" element={<Profile />} />
+
 							<Route path="/artist/:artistName" element={<ArtistScreen />} />
 							<Route
 								path="/artist/:artistName/tracks"
@@ -42,8 +48,6 @@ function App() {
 								path="/artist/:artistName/album"
 								element={<ArtistAlbumScreen />}
 							/>
-							<Route path="/profile" element={<Profile />} />
-
 							<Route path="/album/:idAlbum" element={<AlbumDetailScreen />} />
 						</Routes>
 					</div>

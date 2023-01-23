@@ -55,7 +55,6 @@ const ArtistScreen = () => {
 							<span className="text-sm">
 								{new Intl.NumberFormat("en-US", {
 									notation: "compact",
-									// style: "unit",
 								}).format(artist.nb_fan)}
 								seguidores
 							</span>
@@ -75,7 +74,7 @@ const ArtistScreen = () => {
 					>
 						Canciones
 					</Link>
-					<TableTracks tracks={tracks} />
+					<TableTracks tracks={tracks} AddFav={true} />
 				</div>
 
 				<div className="p-6">
